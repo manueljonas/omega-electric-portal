@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Omega Electric — Painel de Calibrações</title>
+    <title>Omega Electric — Painel de Calibrações/Aferições</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       body {
@@ -360,7 +360,7 @@
         <div class="oe-inner">
           <!-- Título -->
           <div class="page-title">
-            <h4>Painel de Calibrações</h4>
+            <h4>Painel de Calibrações/Aferições</h4>
             <p>Consulte laudos e certificados dos seus relés de proteção.</p>
           </div>
 
@@ -435,7 +435,7 @@
           <!-- Tabela -->
           <div class="table-panel">
             <div class="table-panel-hdr">
-              <span class="title">Laudos de Calibração</span>
+              <span class="title">Laudos de Calibração/Aferição</span>
               <span class="count" id="tbl-count">—</span>
             </div>
             <div class="oe-table-wrap">
@@ -446,7 +446,7 @@
                     <th>Equipamento</th>
                     <th>Tipo</th>
                     <th>Subestação / Bay</th>
-                    <th>Data Calibração</th>
+                    <th>Data Calibração/Aferição</th>
                     <th>Válido até</th>
                     <th>Status</th>
                     <th>Certificado</th>
@@ -645,7 +645,7 @@
 
       function dlBtn(id, s) {
         if (s === "vencida")
-          return `<button class="btn-pdf disabled" disabled title="Calibração vencida">PDF</button>`;
+          return `<button class="btn-pdf disabled" disabled title="Calibração/Aferição vencida">PDF</button>`;
         return `<button class="btn-pdf" onclick="dl('${id}')">↓ PDF</button>`;
       }
 

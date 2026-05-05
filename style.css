@@ -1,5 +1,5 @@
 /* ============================================================
-   OMEGA ELECTRIC — Portal de Calibrações
+   OMEGA ELECTRIC — Portal de Calibrações/Aferições
    Baseado no CSS real do site omega-electric.com.br
    ============================================================ */
 
@@ -309,7 +309,7 @@ p {
   color: #d85553;
 }
 
-/* ===== BADGES (status calibração) ===== */
+/* ===== BADGES (status calibração/Aferição) ===== */
 .oe-badge {
   display: inline-block;
   padding: 2px 8px;
