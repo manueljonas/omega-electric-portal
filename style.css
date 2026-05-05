@@ -1,0 +1,307 @@
+/* ============================================================
+   OMEGA ELECTRIC — Portal de Calibrações
+   Baseado no CSS real do site omega-electric.com.br
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ===== BASE (igual ao site) ===== */
+body {
+  font-family: "Open Sans", verdana, helvetica, arial, sans-serif;
+  font-size: 14px;
+  color: #4e5f70;
+  background-color: #ffffff;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+a { color: #01b1e7; text-decoration: none; }
+a:hover { text-decoration: underline; color: #01b1e7; }
+
+h4 { font-size: 16px; font-weight: 700; color: #4e5f70; margin-bottom: 8px; line-height: 1.4; }
+h3 { font-size: 18px; font-weight: 700; color: #4e5f70; margin-bottom: 10px; }
+p  { margin-bottom: 10px; line-height: 1.7; }
+
+/* ===== LAYOUT ===== */
+.oe-page { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* Largura máxima: 940px — mesmo que o .cs-section-inner do site */
+.oe-inner {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+/* ===== HEADER / NAV (replicado do site) ===== */
+.oe-header {
+  background: #ffffff;
+  min-height: 73px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eeeeee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.oe-header .oe-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 73px;
+}
+
+/* Logo: imagem real do site */
+.oe-logo { display: block; line-height: 0; }
+.oe-logo img { height: 46px; width: auto; display: block; }
+
+/* Nav horizontal — mesmas classes css que o site usa (cs-menu-theme-1) */
+.oe-nav {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0; padding: 0;
+}
+
+.oe-nav li { padding: 5px 18px 6px; }
+
+.oe-nav a {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4e5f70;
+  text-decoration: none;
+  padding: 5px 2px 3px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.oe-nav a:hover,
+.oe-nav a.active {
+  color: #01b1e7;
+  border-bottom-color: #01b1e7;
+  text-decoration: none;
+}
+
+/* Botão especial "Portal" no nav */
+.oe-nav .nav-portal a {
+  background: #259fef;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 3px;
+  border-bottom: none;
+  font-weight: 700;
+}
+.oe-nav .nav-portal a:hover {
+  opacity: 0.85;
+  border-bottom: none;
+  color: #ffffff;
+}
+
+/* ===== BOTÕES (mesmo padrão do site) ===== */
+.oe-btn {
+  display: inline-block;
+  padding: 10px 35px;
+  min-height: 39px;
+  font-family: "Open Sans", verdana, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  transition: opacity 0.2s;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+.oe-btn:hover { opacity: 0.8; text-decoration: none; }
+
+.oe-btn-primary { background: #259fef; color: #ffffff; }
+.oe-btn-white   { background: #ffffff; color: #259fef; }
+.oe-btn-outline {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255,255,255,0.6);
+}
+.oe-btn-danger  { background: #e74c3c; color: #ffffff; }
+
+/* ===== SECTIONS ===== */
+.oe-section { padding: 50px 0; width: 100%; }
+
+.oe-section-white { background: #ffffff; }
+.oe-section-light { background: #f5f5f5; }
+
+.oe-section-dark {
+  background: #1e2d3d;
+  color: #ffffff;
+}
+.oe-section-dark h4,
+.oe-section-dark h3,
+.oe-section-dark p { color: #ffffff; }
+
+.oe-section-blue {
+  background: #259fef;
+  color: #ffffff;
+}
+.oe-section-blue h4,
+.oe-section-blue h3,
+.oe-section-blue p { color: #ffffff; }
+
+/* Separador visual — igual ao site (usa img separador.png) */
+.oe-sep {
+  width: 60px; height: 3px;
+  background: #259fef;
+  margin: 12px 0 20px;
+}
+.oe-sep-center { margin-left: auto; margin-right: auto; }
+
+/* ===== FORMULÁRIOS (replicado da página CONTATO) ===== */
+.oe-form-group { margin-bottom: 14px; }
+
+.oe-form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4e5f70;
+  margin-bottom: 5px;
+}
+
+.oe-form-group input[type=email],
+.oe-form-group input[type=password],
+.oe-form-group input[type=text],
+.oe-form-group select,
+.oe-form-group textarea {
+  width: 100%;
+  height: 36px;
+  padding: 6px 10px;
+  font-family: "Open Sans", verdana, sans-serif;
+  font-size: 14px;
+  color: #555555;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.oe-form-group input:focus,
+.oe-form-group select:focus,
+.oe-form-group textarea:focus {
+  border-color: #01b1e7;
+  box-shadow: 0 0 0 2px rgba(1,177,231,0.15);
+}
+
+.oe-form-group input::placeholder { color: #aaaaaa; }
+
+.oe-form-group input:invalid:not(:placeholder-shown):not(:focus) {
+  border-color: #d85553;
+}
+
+.oe-field-error {
+  display: none;
+  font-size: 12px;
+  color: #d85553;
+  margin-top: 4px;
+}
+.oe-field-error.show { display: block; }
+
+/* ===== ALERTA ===== */
+.oe-alert {
+  display: none;
+  padding: 10px 14px;
+  border-radius: 2px;
+  font-size: 13px;
+  margin-bottom: 14px;
+  border-left: 3px solid;
+}
+.oe-alert.show { display: block; }
+.oe-alert-error {
+  background: #fde8e8;
+  border-color: #d85553;
+  color: #d85553;
+}
+
+/* ===== BADGES (status calibração) ===== */
+.oe-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.oe-badge-ok   { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+.oe-badge-warn { background: #fff8e1; color: #7d5a02; border: 1px solid #ffe082; }
+.oe-badge-err  { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+
+/* ===== TABELA ===== */
+.oe-table-wrap { overflow-x: auto; }
+
+.oe-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 680px;
+}
+
+.oe-table thead th {
+  background: #f5f5f5;
+  border: 1px solid #dddddd;
+  padding: 8px 10px;
+  font-weight: 700;
+  color: #4e5f70;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.oe-table tbody td {
+  border: 1px solid #eeeeee;
+  padding: 8px 10px;
+  color: #4e5f70;
+  vertical-align: middle;
+}
+
+.oe-table tbody tr:nth-child(even) { background: #fafafa; }
+.oe-table tbody tr:hover { background: #f0f8ff; }
+
+/* ===== FOOTER (replicado do site) ===== */
+.oe-footer {
+  background: #222222;
+  color: rgba(255,255,255,0.55);
+  padding: 20px;
+  text-align: center;
+  font-size: 13px;
+  margin-top: auto;
+}
+.oe-footer a { color: rgba(255,255,255,0.55); }
+.oe-footer a:hover { color: #ffffff; text-decoration: none; }
+.oe-footer .tel { color: #e74c3c; font-size: 15px; font-weight: 700; display: block; margin-bottom: 4px; }
+
+/* ===== CARD ===== */
+.oe-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  padding: 20px;
+}
+
+/* ===== DIVIDER ===== */
+.oe-divider { height: 1px; background: #eeeeee; margin: 18px 0; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .oe-nav { display: none; }
+  .oe-section { padding: 30px 0; }
+  .oe-btn { padding: 10px 20px; }
+}

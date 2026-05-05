@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omega Electric — Portal do Cliente</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #f5f5f5; }
+
+    .login-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .login-box {
+      background: #ffffff;
+      border: 1px solid #dddddd;
+      border-radius: 3px;
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Logo centrada no topo */
+    .login-logo {
+      text-align: center;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #eeeeee;
+    }
+    .login-logo img { height: 42px; width: auto; }
+    .login-logo p {
+      font-size: 11px;
+      color: #aaaaaa;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 6px 0 0;
+    }
+
+    .login-title { font-size: 15px; font-weight: 700; color: #4e5f70; margin-bottom: 4px; }
+    .login-sub   { font-size: 13px; color: #999999; margin-bottom: 18px; }
+
+    .btn-login { width: 100%; text-align: center; padding: 10px; font-size: 14px; }
+
+    /* Toggle senha */
+    .pass-wrap { position: relative; }
+    .pass-wrap .oe-form-group input { padding-right: 36px; }
+    .pass-toggle {
+      position: absolute; right: 8px; top: 28px;
+      background: none; border: none; cursor: pointer;
+      color: #aaaaaa; font-size: 14px; padding: 0;
+      line-height: 1; transition: color 0.2s;
+    }
+    .pass-toggle:hover { color: #4e5f70; }
+
+    /* Links auxiliares */
+    .login-links {
+      text-align: center; font-size: 12px;
+      color: #aaaaaa; margin-top: 14px;
+    }
+    .login-links a { color: #01b1e7; font-weight: 600; }
+
+    /* Demo hint */
+    .login-demo {
+      background: #f0f8ff;
+      border: 1px solid #b3d9f5;
+      border-radius: 2px;
+      padding: 10px 12px;
+      margin-top: 14px;
+      font-size: 12px;
+      color: #4e5f70;
+      line-height: 1.7;
+    }
+    .login-demo strong { color: #259fef; font-size: 11px; display: block; margin-bottom: 2px; }
+
+    .back-link {
+      display: block; text-align: center;
+      margin-top: 14px; font-size: 12px; color: #aaaaaa;
+    }
+    .back-link:hover { color: #4e5f70; text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="oe-page">
+
+  <!-- HEADER — nav idêntica ao site Omega Electric -->
+  <header class="oe-header">
+    <div class="oe-inner">
+      <a href="https://omega-electric.com.br/" class="oe-logo">
+        <img src="https://yata-apix-019e6a9c-9df1-45fd-a902-e7fdd7d94508.s3-object.locaweb.com.br/b3fccc9b63a44d61b798619655d854b3.png"
+             alt="Omega Electric" title="Omega Electric">
+      </a>
+      <ul class="oe-nav">
+        <li><a href="https://omega-electric.com.br/">HOME</a></li>
+        <li><a href="https://omega-electric.com.br/sobre">SOBRE</a></li>
+        <li><a href="https://omega-electric.com.br/servicos">SERVIÇOS</a></li>
+        <li><a href="https://omega-electric.com.br/contato">CONTATO</a></li>
+        <li class="nav-portal"><a href="login.html" class="active">PORTAL DO CLIENTE</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- FORMULÁRIO DE LOGIN -->
+  <div class="login-wrap">
+    <div class="login-box">
+
+      <!-- Logo -->
+      <div class="login-logo">
+        <a href="https://omega-electric.com.br/">
+          <img src="https://yata-apix-019e6a9c-9df1-45fd-a902-e7fdd7d94508.s3-object.locaweb.com.br/b3fccc9b63a44d61b798619655d854b3.png"
+               alt="Omega Electric">
+        </a>
+        <p>Portal do Cliente</p>
+      </div>
+
+      <h4 class="login-title">Acesso ao Portal</h4>
+      <p class="login-sub">Informe suas credenciais para consultar seus laudos.</p>
+
+      <!-- Alerta de credenciais inválidas -->
+      <div class="oe-alert oe-alert-error" id="alert-err" role="alert">
+        E-mail ou senha inválidos. Verifique e tente novamente.
+      </div>
+
+      <!-- Formulário -->
+      <form id="login-form" novalidate>
+
+        <div class="oe-form-group">
+          <label for="email">E-mail *</label>
+          <input
+            type="email" id="email" name="email"
+            placeholder="seu@email.com.br"
+            required maxlength="120" autocomplete="email"
+          >
+          <span class="oe-field-error" id="email-err">Informe um endereço de e-mail válido.</span>
+        </div>
+
+        <div class="oe-form-group pass-wrap">
+          <label for="password">Senha *</label>
+          <input
+            type="password" id="password" name="password"
+            placeholder="Sua senha"
+            required minlength="6" maxlength="64"
+            autocomplete="current-password"
+          >
+          <button type="button" class="pass-toggle" id="pass-toggle" title="Mostrar/ocultar senha">👁</button>
+          <span class="oe-field-error" id="pass-err">A senha deve ter pelo menos 6 caracteres.</span>
+        </div>
+
+        <button type="submit" class="oe-btn oe-btn-primary btn-login">
+          ENTRAR NO PORTAL
+        </button>
+      </form>
+
+      <div class="login-links">
+        <a href="#">Esqueceu a senha?</a>
+        &nbsp;·&nbsp;
+        Primeiro acesso? <a href="https://omega-electric.com.br/contato">Solicite aqui</a>
+      </div>
+
+      <!-- Credenciais de demonstração (remover em produção) -->
+      <div class="login-demo">
+        <strong>🔑 Credenciais de demonstração</strong>
+        E-mail: <b>cliente@demo.com</b><br>
+        Senha: <b>omega123</b>
+      </div>
+
+      <a href="https://omega-electric.com.br/" class="back-link">← Voltar ao site da Omega Electric</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="oe-footer">
+    <span class="tel">+55 84 3027-3005</span>
+    <span>Omega Electric 2011.</span>
+  </footer>
+
+</div>
+
+<script>
+  // ============================================================
+  // USUÁRIOS — Parte 1 (mock sem backend)
+  // Na Parte 2, a autenticação será feita via API no servidor.
+  // Para adicionar clientes agora: inclua novos objetos no array
+  // abaixo seguindo o padrão { email, password, name }.
+  // ============================================================
+  const USERS = [
+    { email: 'cliente@demo.com',        password: 'omega123',  name: 'Cliente Demo' },
+    { email: 'contato@energisa.com.br', password: 'energisa',  name: 'Energisa PB'  },
+    { email: 'engenharia@cosern.com.br',        password: 'cosern123', name: 'COSERN'       },
+    // Adicione novos clientes aqui:
+    // { email: 'cliente@suaempresa.com', password: 'senha123', name: 'Nome do Cliente' },
+  ];
+
+  const form    = document.getElementById('login-form');
+  const emailEl = document.getElementById('email');
+  const passEl  = document.getElementById('password');
+  const emailEr = document.getElementById('email-err');
+  const passEr  = document.getElementById('pass-err');
+  const alertEr = document.getElementById('alert-err');
+  const toggle  = document.getElementById('pass-toggle');
+
+  // Toggle mostrar/ocultar senha
+  toggle.addEventListener('click', () => {
+    const show = passEl.type === 'password';
+    passEl.type        = show ? 'text' : 'password';
+    toggle.textContent = show ? '🙈' : '👁';
+  });
+
+  // Validações
+  const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+
+  function valEmail(force) {
+    const v = emailEl.value.trim();
+    if (!v && !force) { emailEr.classList.remove('show'); return false; }
+    const ok = !!v && isEmail(v);
+    emailEr.classList.toggle('show', !ok);
+    return ok;
+  }
+
+  function valPass(force) {
+    const v = passEl.value;
+    if (!v && !force) { passEr.classList.remove('show'); return false; }
+    const ok = v.length >= 6;
+    passEr.classList.toggle('show', !ok);
+    return ok;
+  }
+
+  emailEl.addEventListener('blur',  () => valEmail(true));
+  passEl.addEventListener('blur',   () => valPass(true));
+  emailEl.addEventListener('input', () => { if (emailEr.classList.contains('show')) valEmail(); });
+  passEl.addEventListener('input',  () => { if (passEr.classList.contains('show'))  valPass(); });
+
+  // Submit
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    alertEr.classList.remove('show');
+    if (!valEmail(true) | !valPass(true)) return;
+
+    const email = emailEl.value.trim().toLowerCase();
+    const user  = USERS.find(u => u.email === email && u.password === passEl.value);
+
+    if (user) {
+      sessionStorage.setItem('oe-session', JSON.stringify({ email: user.email, name: user.name }));
+      window.location.href = 'dashboard.html';
+    } else {
+      alertEr.classList.add('show');
+      passEl.value = '';
+      passEl.focus();
+    }
+  });
+
+  // Se já estiver logado, vai direto para o dashboard
+  if (sessionStorage.getItem('oe-session')) window.location.href = 'dashboard.html';
+</script>
+</body>
+</html>
