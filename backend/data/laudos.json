@@ -1,0 +1,26 @@
+[
+  {
+    "id": "OE-2026-0001",
+    "clienteId": "27e53eb8-d66c-4b9e-9dea-c8dcd09d89e8",
+    "model": "SEL-311L",
+    "type": "distancia",
+    "typeLabel": "Distância",
+    "sub": "SE ASA",
+    "bay": "",
+    "calibDate": "2026-06-23",
+    "validUntil": "2027-06-23",
+    "criadoEm": "2026-06-23T16:34:15.084Z"
+  },
+  {
+    "id": "OE-2026-0002",
+    "clienteId": "27e53eb8-d66c-4b9e-9dea-c8dcd09d89e8",
+    "model": "SEL-421",
+    "type": "sobrecorrente",
+    "typeLabel": "Sobrecorrente",
+    "sub": "SE ASA",
+    "bay": "",
+    "calibDate": "2026-06-23",
+    "validUntil": "2027-06-23",
+    "criadoEm": "2026-06-23T16:36:20.533Z"
+  }
+]

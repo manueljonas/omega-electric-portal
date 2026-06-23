@@ -3,12 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Omega Electric — Painel de Calibrações/Aferições</title>
+    <title>Omega Electric — Painel de Calibrações</title>
     <link rel="stylesheet" href="style.css" />
     <style>
-      body {
-        background: #f5f5f5;
-      }
+      body { background: #f5f5f5; }
 
       /* ===== HEADER LOGADO ===== */
       .dash-header {
@@ -27,90 +25,36 @@
         justify-content: space-between;
         min-height: 73px;
       }
-      .dash-left {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-      .dash-sep {
-        color: #dddddd;
-      }
-      .dash-label {
-        font-size: 12px;
-        color: #aaaaaa;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      }
+      .dash-left  { display: flex; align-items: center; gap: 14px; }
+      .dash-sep   { color: #dddddd; }
+      .dash-label { font-size: 12px; color: #aaaaaa; text-transform: uppercase; letter-spacing: 0.08em; }
 
-      .dash-user {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .dash-user-info {
-        text-align: right;
-      }
-      .dash-name {
-        font-size: 13px;
-        font-weight: 700;
-        color: #4e5f70;
-        display: block;
-      }
-      .dash-email {
-        font-size: 11px;
-        color: #aaaaaa;
-        display: block;
-      }
+      .dash-user      { display: flex; align-items: center; gap: 10px; }
+      .dash-user-info { text-align: right; }
+      .dash-name      { font-size: 13px; font-weight: 700; color: #4e5f70; display: block; }
+      .dash-email     { font-size: 11px; color: #aaaaaa; display: block; }
 
       .dash-avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: #259fef;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 13px;
-        font-weight: 700;
-        flex-shrink: 0;
+        width: 32px; height: 32px; border-radius: 50%;
+        background: #259fef; color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 13px; font-weight: 700; flex-shrink: 0;
       }
 
       .btn-sair {
-        padding: 5px 14px;
-        font-size: 12px;
-        font-weight: 600;
-        background: #f5f5f5;
-        color: #666;
-        border: 1px solid #cccccc;
-        border-radius: 2px;
-        cursor: pointer;
-        transition: background 0.2s;
+        padding: 5px 14px; font-size: 12px; font-weight: 600;
+        background: #f5f5f5; color: #666;
+        border: 1px solid #cccccc; border-radius: 2px;
+        cursor: pointer; transition: background 0.2s;
       }
-      .btn-sair:hover {
-        background: #e8e8e8;
-      }
+      .btn-sair:hover { background: #e8e8e8; }
 
       /* ===== MAIN ===== */
-      .dash-main {
-        padding: 24px 0 50px;
-        flex: 1;
-      }
+      .dash-main { padding: 24px 0 50px; flex: 1; }
 
-      .page-title {
-        margin-bottom: 20px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid #e0e0e0;
-      }
-      .page-title h4 {
-        font-size: 18px;
-        margin-bottom: 2px;
-      }
-      .page-title p {
-        font-size: 13px;
-        color: #999999;
-        margin: 0;
-      }
+      .page-title { margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #e0e0e0; }
+      .page-title h4 { font-size: 18px; margin-bottom: 2px; }
+      .page-title p  { font-size: 13px; color: #999999; margin: 0; }
 
       /* ===== CARDS RESUMO ===== */
       .summary-grid {
@@ -128,49 +72,18 @@
         cursor: pointer;
         transition: border-top-color 0.2s;
       }
-      .scard:hover,
-      .scard.active-filter {
-        border-top-color: #259fef;
-      }
+      .scard:hover, .scard.active-filter { border-top-color: #259fef; }
 
-      .scard-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 8px;
-      }
-      .scard-label {
-        font-size: 11px;
-        color: #999999;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
-      .scard-icon {
-        font-size: 15px;
-      }
-      .scard-n {
-        font-size: 28px;
-        font-weight: 700;
-        line-height: 1;
-        margin-bottom: 3px;
-      }
-      .scard-sub {
-        font-size: 11px;
-        color: #bbbbbb;
-      }
+      .scard-top   { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+      .scard-label { font-size: 11px; color: #999999; font-weight: 600; text-transform: uppercase; }
+      .scard-icon  { font-size: 15px; }
+      .scard-n     { font-size: 28px; font-weight: 700; line-height: 1; margin-bottom: 3px; }
+      .scard-sub   { font-size: 11px; color: #bbbbbb; }
 
-      .scard.total .scard-n {
-        color: #4e5f70;
-      }
-      .scard.ok .scard-n {
-        color: #27ae60;
-      }
-      .scard.warn .scard-n {
-        color: #d68910;
-      }
-      .scard.err .scard-n {
-        color: #e74c3c;
-      }
+      .scard.total .scard-n { color: #4e5f70; }
+      .scard.ok    .scard-n { color: #27ae60; }
+      .scard.warn  .scard-n { color: #d68910; }
+      .scard.err   .scard-n { color: #e74c3c; }
 
       /* ===== FILTROS ===== */
       .filters {
@@ -184,152 +97,92 @@
         gap: 10px;
         flex-wrap: wrap;
       }
-      .fg {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        flex: 1;
-        min-width: 140px;
-      }
-      .fg.search {
-        flex: 2;
-        min-width: 200px;
-      }
-      .fg label {
-        font-size: 11px;
-        font-weight: 600;
-        color: #999999;
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
-        margin: 0;
-      }
-      .fg input,
-      .fg select {
-        height: 32px;
-        padding: 4px 8px;
-        font-size: 13px;
-      }
+      .fg { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 140px; }
+      .fg.search { flex: 2; min-width: 200px; }
+      .fg label { font-size: 11px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.04em; margin: 0; }
+      .fg input, .fg select { height: 32px; padding: 4px 8px; font-size: 13px; }
 
       .btn-limpar {
-        height: 32px;
-        padding: 0 14px;
-        font-size: 12px;
-        font-weight: 600;
-        background: #f5f5f5;
-        color: #666666;
-        border: 1px solid #cccccc;
-        border-radius: 2px;
-        cursor: pointer;
-        white-space: nowrap;
-        align-self: flex-end;
+        height: 32px; padding: 0 14px; font-size: 12px; font-weight: 600;
+        background: #f5f5f5; color: #666666;
+        border: 1px solid #cccccc; border-radius: 2px;
+        cursor: pointer; white-space: nowrap; align-self: flex-end;
       }
-      .btn-limpar:hover {
-        background: #e8e8e8;
-      }
+      .btn-limpar:hover { background: #e8e8e8; }
 
       /* ===== PAINEL TABELA ===== */
-      .table-panel {
-        background: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 2px;
-      }
+      .table-panel { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 2px; }
 
       .table-panel-hdr {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        display: flex; align-items: center; justify-content: space-between;
         padding: 10px 14px;
         border-bottom: 1px solid #e8e8e8;
         background: #fafafa;
       }
-      .table-panel-hdr .title {
-        font-size: 13px;
-        font-weight: 700;
-        color: #4e5f70;
-      }
-      .table-panel-hdr .count {
-        font-size: 12px;
-        color: #aaaaaa;
-      }
+      .table-panel-hdr .title { font-size: 13px; font-weight: 700; color: #4e5f70; }
+      .table-panel-hdr .count { font-size: 12px; color: #aaaaaa; }
 
-      .cell-name strong {
-        display: block;
-        font-weight: 700;
-        font-size: 13px;
-        color: #4e5f70;
-      }
-      .cell-name small {
-        font-size: 11px;
-        color: #aaaaaa;
-      }
-      .cell-date {
-        font-size: 12px;
-        white-space: nowrap;
-      }
-      .cell-date.expired {
-        color: #e74c3c;
-        font-weight: 700;
-      }
-      .cell-date.warning {
-        color: #d68910;
-        font-weight: 700;
-      }
+      .cell-name strong { display: block; font-weight: 700; font-size: 13px; color: #4e5f70; }
+      .cell-name small  { font-size: 11px; color: #aaaaaa; }
+      .cell-date        { font-size: 12px; white-space: nowrap; }
+      .cell-date.expired { color: #e74c3c; font-weight: 700; }
+      .cell-date.warning { color: #d68910; font-weight: 700; }
 
       .btn-pdf {
-        display: inline-block;
-        padding: 3px 10px;
-        font-size: 11px;
-        font-weight: 700;
-        background: #259fef;
-        color: #ffffff;
-        border: none;
-        border-radius: 2px;
-        cursor: pointer;
-        transition: opacity 0.2s;
+        display: inline-block; padding: 3px 10px;
+        font-size: 11px; font-weight: 700;
+        background: #259fef; color: #ffffff;
+        border: none; border-radius: 2px;
+        cursor: pointer; transition: opacity 0.2s;
       }
-      .btn-pdf:hover {
-        opacity: 0.8;
+      .btn-pdf:hover { opacity: 0.8; }
+      .btn-pdf.disabled { background: #e0e0e0; color: #aaaaaa; cursor: not-allowed; }
+      .btn-pdf.disabled:hover { opacity: 1; }
+
+      /* ===== ESTADOS DA TABELA ===== */
+      .tbl-state {
+        display: none; text-align: center;
+        padding: 40px; color: #aaaaaa; font-size: 13px;
       }
-      .btn-pdf.disabled {
-        background: #e0e0e0;
-        color: #aaaaaa;
-        cursor: not-allowed;
+      .tbl-state.show { display: block; }
+      .tbl-state .state-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+
+      /* Spinner carregamento */
+      .spinner-row td {
+        text-align: center; padding: 40px !important;
+        color: #aaaaaa; font-size: 13px;
       }
-      .btn-pdf.disabled:hover {
-        opacity: 1;
+      .mini-spinner {
+        display: inline-block; width: 18px; height: 18px;
+        border: 2px solid #dddddd; border-top-color: #259fef;
+        border-radius: 50%; animation: spin 0.7s linear infinite;
+        vertical-align: middle; margin-right: 8px;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* ===== ADMIN BADGE ===== */
+      .badge-admin {
+        display: inline-block; padding: 2px 8px;
+        background: #fff3cd; color: #856404;
+        border: 1px solid #ffc107; border-radius: 2px;
+        font-size: 10px; font-weight: 700;
+        margin-left: 6px; vertical-align: middle;
       }
 
-      .no-results {
-        display: none;
-        text-align: center;
-        padding: 36px;
-        color: #aaaaaa;
-        font-size: 13px;
-      }
-      .no-results.show {
-        display: block;
-      }
-
+      /* ===== RESPONSIVE ===== */
       @media (max-width: 900px) {
-        .summary-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .dash-user-info {
-          display: none;
-        }
+        .summary-grid { grid-template-columns: repeat(2, 1fr); }
+        .dash-user-info { display: none; }
       }
       @media (max-width: 600px) {
-        .filters {
-          flex-direction: column;
-        }
-        .fg {
-          min-width: 100%;
-        }
+        .filters { flex-direction: column; }
+        .fg { min-width: 100%; }
       }
     </style>
   </head>
   <body>
     <div class="oe-page">
+
       <!-- HEADER LOGADO -->
       <header class="dash-header">
         <div class="oe-inner">
@@ -337,8 +190,7 @@
             <a href="https://omega-electric.com.br/" class="oe-logo">
               <img
                 src="https://yata-apix-019e6a9c-9df1-45fd-a902-e7fdd7d94508.s3-object.locaweb.com.br/b3fccc9b63a44d61b798619655d854b3.png"
-                alt="Omega Electric"
-                style="height: 38px"
+                alt="Omega Electric" style="height:38px;"
               />
             </a>
             <span class="dash-sep">|</span>
@@ -346,56 +198,46 @@
           </div>
           <div class="dash-user">
             <div class="dash-user-info">
-              <span class="dash-name" id="nav-name">—</span>
+              <span class="dash-name"  id="nav-name">—</span>
               <span class="dash-email" id="nav-email">—</span>
             </div>
             <div class="dash-avatar" id="nav-avatar">?</div>
+            <a href="admin.html" id="link-admin" class="btn-sair"
+               style="display:none;text-decoration:none">⚙ Admin</a>
             <button class="btn-sair" id="btn-logout">Sair</button>
           </div>
         </div>
       </header>
 
-      <!-- CONTEÚDO -->
+      <!-- CONTEÚDO PRINCIPAL -->
       <div class="dash-main">
         <div class="oe-inner">
-          <!-- Título -->
+
           <div class="page-title">
-            <h4>Painel de Calibrações/Aferições</h4>
+            <h4>Painel de Calibrações/Aferições <span id="badge-admin"></span></h4>
             <p>Consulte laudos e certificados dos seus relés de proteção.</p>
           </div>
 
-          <!-- Cards resumo (clicáveis para filtrar) -->
+          <!-- Cards resumo -->
           <div class="summary-grid">
             <div class="scard total" data-filter="">
-              <div class="scard-top">
-                <span class="scard-label">Total</span
-                ><span class="scard-icon">🗂️</span>
-              </div>
-              <div class="scard-n" id="cnt-total">0</div>
+              <div class="scard-top"><span class="scard-label">Total</span><span class="scard-icon">🗂️</span></div>
+              <div class="scard-n" id="cnt-total">—</div>
               <div class="scard-sub">equipamentos</div>
             </div>
             <div class="scard ok" data-filter="valida">
-              <div class="scard-top">
-                <span class="scard-label">Válidas</span
-                ><span class="scard-icon">✅</span>
-              </div>
-              <div class="scard-n" id="cnt-ok">0</div>
+              <div class="scard-top"><span class="scard-label">Válidas</span><span class="scard-icon">✅</span></div>
+              <div class="scard-n" id="cnt-ok">—</div>
               <div class="scard-sub">dentro do prazo</div>
             </div>
             <div class="scard warn" data-filter="a-vencer">
-              <div class="scard-top">
-                <span class="scard-label">A Vencer</span
-                ><span class="scard-icon">⚠️</span>
-              </div>
-              <div class="scard-n" id="cnt-warn">0</div>
+              <div class="scard-top"><span class="scard-label">A Vencer</span><span class="scard-icon">⚠️</span></div>
+              <div class="scard-n" id="cnt-warn">—</div>
               <div class="scard-sub">próximos 90 dias</div>
             </div>
             <div class="scard err" data-filter="vencida">
-              <div class="scard-top">
-                <span class="scard-label">Vencidas</span
-                ><span class="scard-icon">❌</span>
-              </div>
-              <div class="scard-n" id="cnt-err">0</div>
+              <div class="scard-top"><span class="scard-label">Vencidas</span><span class="scard-icon">❌</span></div>
+              <div class="scard-n" id="cnt-err">—</div>
               <div class="scard-sub">fora do prazo</div>
             </div>
           </div>
@@ -404,11 +246,7 @@
           <div class="filters">
             <div class="fg search">
               <label for="f-search">Buscar</label>
-              <input
-                type="text"
-                id="f-search"
-                placeholder="Equipamento, subestação, bay ou nº do laudo..."
-              />
+              <input type="text" id="f-search" placeholder="Equipamento, subestação, bay ou nº do laudo...">
             </div>
             <div class="fg">
               <label for="f-status">Status</label>
@@ -432,11 +270,11 @@
             <button class="btn-limpar" id="btn-clear">Limpar</button>
           </div>
 
-          <!-- Tabela -->
+          <!-- Tabela de laudos -->
           <div class="table-panel">
             <div class="table-panel-hdr">
               <span class="title">Laudos de Calibração/Aferição</span>
-              <span class="count" id="tbl-count">—</span>
+              <span class="count" id="tbl-count">carregando...</span>
             </div>
             <div class="oe-table-wrap">
               <table class="oe-table">
@@ -446,23 +284,35 @@
                     <th>Equipamento</th>
                     <th>Tipo</th>
                     <th>Subestação / Bay</th>
-                    <th>Data Calibração/Aferição</th>
+                    <th>Data Calibração</th>
                     <th>Válido até</th>
                     <th>Status</th>
                     <th>Certificado</th>
                   </tr>
                 </thead>
-                <tbody id="tbl-body"></tbody>
+                <tbody id="tbl-body">
+                  <!-- Linha de carregamento inicial -->
+                  <tr class="spinner-row">
+                    <td colspan="8">
+                      <span class="mini-spinner"></span> Carregando laudos...
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
-            <div class="no-results" id="no-results">
+            <div class="tbl-state" id="no-results">
+              <span class="state-icon">🔍</span>
               Nenhum equipamento encontrado com os filtros aplicados.
             </div>
+            <div class="tbl-state" id="api-error">
+              <span class="state-icon">⚠️</span>
+              Não foi possível carregar os laudos. Verifique a conexão com o servidor.
+            </div>
           </div>
+
         </div>
       </div>
 
-      <!-- FOOTER -->
       <footer class="oe-footer">
         <span class="tel">+55 84 3027-3005</span>
         <span>Portal do Cliente · Omega Electric 2011.</span>
@@ -470,314 +320,237 @@
     </div>
 
     <script>
-      // ===== AUTENTICAÇÃO =====
-      // Redireciona para login.html se não houver sessão ativa
-      const session = JSON.parse(
-        sessionStorage.getItem("oe-session") || "null",
-      );
-      if (!session) {
-        window.location.replace("login.html");
+      // ============================================================
+      // URL base da API — detecta o ambiente automaticamente
+      // Local (Live Server) → http://localhost:3000 | Produção → API_PROD
+      // ============================================================
+      const API_PROD = 'https://omega-electric-portal-api.onrender.com';
+      const ehLocal  = ['localhost', '127.0.0.1'].includes(location.hostname);
+      const API_URL  = ehLocal ? 'http://localhost:3000' : API_PROD;
+
+      // ── Sessão: verifica token e carrega dados do usuário ─────
+      const token   = sessionStorage.getItem('oe-token');
+      const session = JSON.parse(sessionStorage.getItem('oe-session') || 'null');
+
+      if (!token || !session) {
+        window.location.replace('login.html');
       } else {
-        const name = session.name || session.email.split("@")[0];
-        document.getElementById("nav-name").textContent = name;
-        document.getElementById("nav-email").textContent = session.email;
-        document.getElementById("nav-avatar").textContent =
-          name[0].toUpperCase();
+        const name = session.name || session.email.split('@')[0];
+        document.getElementById('nav-name').textContent   = name;
+        document.getElementById('nav-email').textContent  = session.email;
+        document.getElementById('nav-avatar').textContent = name[0].toUpperCase();
+
+        // Exibe badge e link de admin se for administrador
+        if (session.perfil === 'admin') {
+          document.getElementById('badge-admin').innerHTML =
+            '<span class="badge-admin">ADMIN</span>';
+          document.getElementById('link-admin').style.display = 'inline-block';
+        }
       }
 
-      // Botão Sair → limpa sessão e volta para login
-      document.getElementById("btn-logout").addEventListener("click", () => {
-        sessionStorage.removeItem("oe-session");
-        window.location.href = "login.html";
+      // ── Botão Sair ────────────────────────────────────────────
+      document.getElementById('btn-logout').addEventListener('click', () => {
+        sessionStorage.removeItem('oe-token');
+        sessionStorage.removeItem('oe-session');
+        window.location.href = 'login.html';
       });
 
-      // ===== DADOS MOCK (Parte 1 — substituídos por API na Parte 2) =====
-      // Para adicionar equipamentos: inclua novos objetos neste array.
-      const DATA = [
-        {
-          id: "OE-2024-0112",
-          model: "SEL-311C",
-          type: "sobrecorrente",
-          typeLabel: "Sobrecorrente",
-          sub: "SE Mossoró 230kV",
-          bay: "Bay 03",
-          calibDate: "2024-03-15",
-          validUntil: "2026-03-15",
-          status: "valida",
-        },
-        {
-          id: "OE-2024-0198",
-          model: "ABB REF615",
-          type: "diferencial",
-          typeLabel: "Diferencial",
-          sub: "SE Natal Sul 138kV",
-          bay: "Bay 07",
-          calibDate: "2024-06-20",
-          validUntil: "2025-06-20",
-          status: "vencida",
-        },
-        {
-          id: "OE-2024-0231",
-          model: "GE D60",
-          type: "distancia",
-          typeLabel: "Distância",
-          sub: "SE Caicó 69kV",
-          bay: "Bay 02",
-          calibDate: "2024-08-10",
-          validUntil: "2026-08-10",
-          status: "valida",
-        },
-        {
-          id: "OE-2024-0275",
-          model: "Siemens 7SJ85",
-          type: "multifunction",
-          typeLabel: "Multifunção",
-          sub: "SE Currais Novos 138kV",
-          bay: "Bay 01",
-          calibDate: "2023-11-05",
-          validUntil: "2025-11-05",
-          status: "a-vencer",
-        },
-        {
-          id: "OE-2025-0014",
-          model: "SEL-751A",
-          type: "sobrecorrente",
-          typeLabel: "Sobrecorrente",
-          sub: "SE João Câmara 230kV",
-          bay: "Bay 05",
-          calibDate: "2025-01-22",
-          validUntil: "2027-01-22",
-          status: "valida",
-        },
-        {
-          id: "OE-2024-0089",
-          model: "ABB RET670",
-          type: "diferencial",
-          typeLabel: "Diferencial",
-          sub: "SE Mossoró 230kV",
-          bay: "Bay 01",
-          calibDate: "2024-01-30",
-          validUntil: "2025-07-30",
-          status: "a-vencer",
-        },
-        {
-          id: "OE-2023-0201",
-          model: "GE L90",
-          type: "diferencial",
-          typeLabel: "Diferencial",
-          sub: "SE Campina Grande 230kV",
-          bay: "Bay 04",
-          calibDate: "2023-08-14",
-          validUntil: "2025-08-14",
-          status: "a-vencer",
-        },
-        {
-          id: "OE-2025-0042",
-          model: "SEL-387A",
-          type: "diferencial",
-          typeLabel: "Diferencial",
-          sub: "SE Natal Sul 138kV",
-          bay: "Bay 02",
-          calibDate: "2025-02-18",
-          validUntil: "2027-02-18",
-          status: "valida",
-        },
-        {
-          id: "OE-2023-0156",
-          model: "Siemens 7SD82",
-          type: "distancia",
-          typeLabel: "Distância",
-          sub: "SE Mossoró 230kV",
-          bay: "Bay 06",
-          calibDate: "2023-06-01",
-          validUntil: "2025-06-01",
-          status: "vencida",
-        },
-        {
-          id: "OE-2025-0067",
-          model: "SEL-411L",
-          type: "distancia",
-          typeLabel: "Distância",
-          sub: "SE João Câmara 230kV",
-          bay: "Bay 08",
-          calibDate: "2025-03-10",
-          validUntil: "2027-03-10",
-          status: "valida",
-        },
-        {
-          id: "OE-2024-0310",
-          model: "ABB REJ601",
-          type: "multifunction",
-          typeLabel: "Multifunção",
-          sub: "SE Caicó 69kV",
-          bay: "Bay 05",
-          calibDate: "2024-09-25",
-          validUntil: "2026-09-25",
-          status: "valida",
-        },
-        {
-          id: "OE-2023-0089",
-          model: "GE F60",
-          type: "multifunction",
-          typeLabel: "Multifunção",
-          sub: "SE Currais Novos 138kV",
-          bay: "Bay 03",
-          calibDate: "2023-04-12",
-          validUntil: "2025-04-12",
-          status: "vencida",
-        },
-      ];
+      // ── Header de autenticação para todas as chamadas ─────────
+      // Equivalente ao Authorization: Bearer <token> do Spring
+      const authHeader = { 'Authorization': `Bearer ${token}` };
 
-      // ===== UTILS =====
-      const fmt = (iso) => {
-        const [y, m, d] = iso.split("-");
+      // ── Dados carregados da API ───────────────────────────────
+      let DATA = [];   // array completo retornado pela API
+
+      // ── Utilitários ───────────────────────────────────────────
+      const fmt = iso => {
+        const [y, m, d] = iso.split('-');
         return `${d}/${m}/${y}`;
       };
 
       function badge(s) {
-        if (s === "valida")
-          return '<span class="oe-badge oe-badge-ok">VÁLIDA</span>';
-        if (s === "a-vencer")
-          return '<span class="oe-badge oe-badge-warn">A VENCER</span>';
-        if (s === "vencida")
-          return '<span class="oe-badge oe-badge-err">VENCIDA</span>';
+        if (s === 'valida')   return '<span class="oe-badge oe-badge-ok">VÁLIDA</span>';
+        if (s === 'a-vencer') return '<span class="oe-badge oe-badge-warn">A VENCER</span>';
+        if (s === 'vencida')  return '<span class="oe-badge oe-badge-err">VENCIDA</span>';
+        return '';
       }
 
       function dlBtn(id, s) {
-        if (s === "vencida")
+        if (s === 'vencida')
           return `<button class="btn-pdf disabled" disabled title="Calibração/Aferição vencida">PDF</button>`;
-        return `<button class="btn-pdf" onclick="dl('${id}')">↓ PDF</button>`;
+        return `<button class="btn-pdf" onclick="baixarCertificado('${id}')">↓ PDF</button>`;
       }
 
-      function dc(s) {
-        return s === "vencida" ? "expired" : s === "a-vencer" ? "warning" : "";
+      function dateClass(s) {
+        return s === 'vencida' ? 'expired' : s === 'a-vencer' ? 'warning' : '';
       }
 
-      // ===== RENDER =====
+      // ── Render da tabela ──────────────────────────────────────
       function render(data) {
-        const tbody = document.getElementById("tbl-body");
-        const noRes = document.getElementById("no-results");
-        const cnt = document.getElementById("tbl-count");
+        const tbody  = document.getElementById('tbl-body');
+        const noRes  = document.getElementById('no-results');
+        const apiErr = document.getElementById('api-error');
+        const cnt    = document.getElementById('tbl-count');
+
+        noRes.classList.remove('show');
+        apiErr.classList.remove('show');
 
         if (!data.length) {
-          tbody.innerHTML = "";
-          noRes.classList.add("show");
-          cnt.textContent = "0 registros";
+          tbody.innerHTML = '';
+          noRes.classList.add('show');
+          cnt.textContent = '0 registros';
           return;
         }
 
-        noRes.classList.remove("show");
-        cnt.textContent = `${data.length} registro${data.length !== 1 ? "s" : ""}`;
+        cnt.textContent = `${data.length} registro${data.length !== 1 ? 's' : ''}`;
 
-        tbody.innerHTML = data
-          .map(
-            (d) => `
-      <tr>
-        <td style="font-size:12px;white-space:nowrap">${d.id}</td>
-        <td class="cell-name"><strong>${d.model}</strong><small>Série: ${d.id}</small></td>
-        <td>${d.typeLabel}</td>
-        <td class="cell-name"><strong>${d.sub}</strong><small>${d.bay}</small></td>
-        <td class="cell-date">${fmt(d.calibDate)}</td>
-        <td class="cell-date ${dc(d.status)}">${fmt(d.validUntil)}</td>
-        <td>${badge(d.status)}</td>
-        <td>${dlBtn(d.id, d.status)}</td>
-      </tr>`,
-          )
-          .join("");
+        tbody.innerHTML = data.map(d => `
+          <tr>
+            <td style="font-size:12px;white-space:nowrap">${d.id}</td>
+            <td class="cell-name">
+              <strong>${d.model}</strong>
+              <small>Série: ${d.id}</small>
+            </td>
+            <td>${d.typeLabel}</td>
+            <td style="font-size:13px;color:#4e5f70">
+              ${d.sub}${d.bay ? ' / ' + d.bay : ''}
+            </td>
+            <td class="cell-date">${fmt(d.calibDate)}</td>
+            <td class="cell-date ${dateClass(d.status)}">${fmt(d.validUntil)}</td>
+            <td>${badge(d.status)}</td>
+            <td>${dlBtn(d.id, d.status)}</td>
+          </tr>`).join('');
       }
 
-      function counts(data) {
-        document.getElementById("cnt-total").textContent = data.length;
-        document.getElementById("cnt-ok").textContent = data.filter(
-          (d) => d.status === "valida",
-        ).length;
-        document.getElementById("cnt-warn").textContent = data.filter(
-          (d) => d.status === "a-vencer",
-        ).length;
-        document.getElementById("cnt-err").textContent = data.filter(
-          (d) => d.status === "vencida",
-        ).length;
+      // ── Atualiza contadores dos cards ─────────────────────────
+      function updateCounts(data) {
+        document.getElementById('cnt-total').textContent = data.length;
+        document.getElementById('cnt-ok').textContent    = data.filter(d => d.status === 'valida').length;
+        document.getElementById('cnt-warn').textContent  = data.filter(d => d.status === 'a-vencer').length;
+        document.getElementById('cnt-err').textContent   = data.filter(d => d.status === 'vencida').length;
       }
 
-      // ===== FILTROS =====
-      let activeCard = "";
+      // ── Filtros ───────────────────────────────────────────────
+      let activeCard = '';
 
-      function filter() {
-        const q = document
-          .getElementById("f-search")
-          .value.toLowerCase()
-          .trim();
-        const st = document.getElementById("f-status").value || activeCard;
-        const tp = document.getElementById("f-tipo").value;
-        const r = DATA.filter((d) => {
-          const ms =
-            !q ||
-            [d.model, d.sub, d.bay, d.id, d.typeLabel].some((x) =>
-              x.toLowerCase().includes(q),
-            );
-          return ms && (!st || d.status === st) && (!tp || d.type === tp);
+      function applyFilters() {
+        const q  = document.getElementById('f-search').value.toLowerCase().trim();
+        const st = document.getElementById('f-status').value || activeCard;
+        const tp = document.getElementById('f-tipo').value;
+
+        const filtered = DATA.filter(d => {
+          const match = !q || [d.model, d.sub, d.bay, d.id, d.typeLabel]
+            .some(x => x.toLowerCase().includes(q));
+          return match && (!st || d.status === st) && (!tp || d.type === tp);
         });
-        render(r);
-        counts(r);
+
+        render(filtered);
+        updateCounts(filtered);
       }
 
-      document.querySelectorAll(".scard").forEach((c) => {
-        c.addEventListener("click", () => {
+      // Cards clicáveis
+      document.querySelectorAll('.scard').forEach(c => {
+        c.addEventListener('click', () => {
           const f = c.dataset.filter;
-          if (activeCard === f && f !== "") {
-            activeCard = "";
-            document
-              .querySelectorAll(".scard")
-              .forEach((x) => x.classList.remove("active-filter"));
-            document.getElementById("f-status").value = "";
+          if (activeCard === f && f !== '') {
+            activeCard = '';
+            document.querySelectorAll('.scard').forEach(x => x.classList.remove('active-filter'));
+            document.getElementById('f-status').value = '';
           } else {
             activeCard = f;
-            document
-              .querySelectorAll(".scard")
-              .forEach((x) => x.classList.remove("active-filter"));
-            c.classList.add("active-filter");
-            document.getElementById("f-status").value = f;
+            document.querySelectorAll('.scard').forEach(x => x.classList.remove('active-filter'));
+            c.classList.add('active-filter');
+            document.getElementById('f-status').value = f;
           }
-          filter();
+          applyFilters();
         });
       });
 
-      document.getElementById("f-search").addEventListener("input", filter);
-      document.getElementById("f-status").addEventListener("change", () => {
-        activeCard = document.getElementById("f-status").value;
-        document
-          .querySelectorAll(".scard")
-          .forEach((x) => x.classList.remove("active-filter"));
+      document.getElementById('f-search').addEventListener('input', applyFilters);
+      document.getElementById('f-status').addEventListener('change', () => {
+        activeCard = document.getElementById('f-status').value;
+        document.querySelectorAll('.scard').forEach(x => x.classList.remove('active-filter'));
         if (activeCard) {
-          const m = document.querySelector(
-            `.scard[data-filter="${activeCard}"]`,
-          );
-          if (m) m.classList.add("active-filter");
+          const m = document.querySelector(`.scard[data-filter="${activeCard}"]`);
+          if (m) m.classList.add('active-filter');
         }
-        filter();
+        applyFilters();
       });
-      document.getElementById("f-tipo").addEventListener("change", filter);
-      document.getElementById("btn-clear").addEventListener("click", () => {
-        document.getElementById("f-search").value = "";
-        document.getElementById("f-status").value = "";
-        document.getElementById("f-tipo").value = "";
-        activeCard = "";
-        document
-          .querySelectorAll(".scard")
-          .forEach((x) => x.classList.remove("active-filter"));
-        filter();
+      document.getElementById('f-tipo').addEventListener('change', applyFilters);
+      document.getElementById('btn-clear').addEventListener('click', () => {
+        document.getElementById('f-search').value = '';
+        document.getElementById('f-status').value = '';
+        document.getElementById('f-tipo').value   = '';
+        activeCard = '';
+        document.querySelectorAll('.scard').forEach(x => x.classList.remove('active-filter'));
+        applyFilters();
       });
 
-      // Download (mock — funcional na Parte 2 com backend)
-      function dl(id) {
-        alert(
-          `Certificado ${id}\n\nNa versão final, este botão fará o download do PDF diretamente do servidor.\n\n[Disponível na Parte 2 — Backend]`,
-        );
+      // ── Download do certificado PDF ───────────────────────────
+      async function baixarCertificado(id) {
+        try {
+          const resp = await fetch(`${API_URL}/api/certificados/${id}`, {
+            headers: authHeader
+          });
+
+          if (!resp.ok) {
+            const dados = await resp.json();
+            alert(dados.erro || 'Certificado não disponível.');
+            return;
+          }
+
+          // Cria link temporário para download do PDF
+          const blob = await resp.blob();
+          const url  = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href     = url;
+          link.download = `${id}.pdf`;
+          link.click();
+          URL.revokeObjectURL(url);
+
+        } catch (erro) {
+          alert('Erro ao baixar o certificado. Verifique a conexão com o servidor.');
+          console.error('[PDF]', erro);
+        }
       }
 
-      // Inicialização
-      counts(DATA);
-      render(DATA);
+      // ── Carrega os laudos da API ao abrir o painel ────────────
+      async function carregarLaudos() {
+        try {
+          // GET /api/laudos — retorna apenas os laudos do cliente logado
+          const resp = await fetch(`${API_URL}/api/laudos`, {
+            headers: authHeader
+          });
+
+          if (resp.status === 401) {
+            // Token expirado — força novo login
+            sessionStorage.removeItem('oe-token');
+            sessionStorage.removeItem('oe-session');
+            window.location.replace('login.html');
+            return;
+          }
+
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+          DATA = await resp.json();
+          render(DATA);
+          updateCounts(DATA);
+
+        } catch (erro) {
+          // Exibe mensagem de erro na tabela
+          document.getElementById('tbl-body').innerHTML = '';
+          document.getElementById('api-error').classList.add('show');
+          document.getElementById('tbl-count').textContent = 'erro ao carregar';
+          document.getElementById('cnt-total').textContent = '—';
+          document.getElementById('cnt-ok').textContent    = '—';
+          document.getElementById('cnt-warn').textContent  = '—';
+          document.getElementById('cnt-err').textContent   = '—';
+          console.error('[LAUDOS]', erro);
+        }
+      }
+
+      // Inicia o carregamento ao abrir a página
+      carregarLaudos();
     </script>
   </body>
 </html>

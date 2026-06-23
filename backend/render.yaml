@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: omega-electric-portal-api
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: NODE_ENV
+        value: production

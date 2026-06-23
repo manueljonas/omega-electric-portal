@@ -1,0 +1,26 @@
+[
+  {
+    "id": "admin-001",
+    "nome": "Administrador Omega Electric",
+    "email": "admin@omega-electric.com.br",
+    "senha": "$2a$10$F46KiOv.bWyip3jT5VxPr.gTvYetqKBy6/P2Qh03bKKNAbWb74tlK",
+    "perfil": "admin",
+    "criadoEm": "2026-06-23T03:12:07.984Z"
+  },
+  {
+    "id": "27e53eb8-d66c-4b9e-9dea-c8dcd09d89e8",
+    "nome": "Essentia Energia",
+    "email": "admin@essentiaenergia.com.br",
+    "senha": "$2a$10$NhJdrNhOPauDTiokWlj0Nu76hPpnKSVLtYhvBvbKcHppeqyPlgMpi",
+    "perfil": "cliente",
+    "criadoEm": "2026-06-23T03:37:57.637Z"
+  },
+  {
+    "id": "7be87884-b786-47ab-8b35-bd8991964211",
+    "nome": "Neoenergia-RN",
+    "email": "admin@cosern.com.br",
+    "senha": "$2a$10$50T/pHKIfOWYm3loV4kbb.YLZQ.P7N.NGrvNaDjHMpxc86d2MmGI.",
+    "perfil": "cliente",
+    "criadoEm": "2026-06-23T04:33:56.476Z"
+  }
+]

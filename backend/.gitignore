@@ -1,0 +1,17 @@
+# Dependências Node.js
+backend/node_modules/
+
+# Variáveis de ambiente (nunca subir para o GitHub)
+backend/.env
+.env
+
+# PDFs dos certificados (arquivos grandes — gerenciar separadamente)
+backend/certificados/*.pdf
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

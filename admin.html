@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Omega Electric — Administração</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body{background:#f5f5f5}
+    .dash-header{background:#fff;min-height:73px;display:flex;align-items:center;border-bottom:1px solid #eee;position:sticky;top:0;z-index:100}
+    .dash-header .oe-inner{display:flex;align-items:center;justify-content:space-between;min-height:73px}
+    .dash-left{display:flex;align-items:center;gap:14px}
+    .dash-sep{color:#ddd}
+    .dash-label{font-size:12px;color:#aaa;text-transform:uppercase;letter-spacing:.08em}
+    .dash-user{display:flex;align-items:center;gap:10px}
+    .dash-user-info{text-align:right}
+    .dash-name{font-size:13px;font-weight:700;color:#4e5f70;display:block}
+    .dash-email{font-size:11px;color:#aaa;display:block}
+    .dash-avatar{width:32px;height:32px;border-radius:50%;background:#259fef;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+    .btn-nav{padding:5px 14px;font-size:12px;font-weight:600;background:#f5f5f5;color:#666;border:1px solid #ccc;border-radius:2px;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s}
+    .btn-nav:hover{background:#e8e8e8;text-decoration:none;color:#444}
+    .tabs{display:flex;border-bottom:2px solid #e0e0e0;margin-bottom:24px}
+    .tab{padding:10px 22px;font-size:13px;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;background:none;border-top:none;border-left:none;border-right:none;font-family:"Open Sans",sans-serif;transition:color .2s,border-color .2s}
+    .tab:hover{color:#4e5f70}
+    .tab.active{color:#259fef;border-bottom-color:#259fef}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+    .two-col{display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start}
+    .admin-main{padding:24px 0 50px;flex:1}
+    .panel{background:#fff;border:1px solid #e0e0e0;border-radius:2px}
+    .panel-hdr{padding:12px 18px;border-bottom:1px solid #e8e8e8;background:#fafafa;display:flex;align-items:center;justify-content:space-between}
+    .panel-hdr .title{font-size:13px;font-weight:700;color:#4e5f70}
+    .panel-hdr .count{font-size:12px;color:#aaa}
+    .panel-body{padding:18px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .form-row.single{grid-template-columns:1fr}
+    .form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;padding-top:12px;border-top:1px solid #eee}
+    .ffb{display:none;padding:9px 12px;border-radius:2px;font-size:13px;margin-bottom:14px;border-left:3px solid}
+    .ffb.show{display:block}
+    .ffb.ok{background:#e8f5e9;border-color:#27ae60;color:#1e7e34}
+    .ffb.err{background:#fde8e8;border-color:#d85553;color:#d85553}
+    .bsm{padding:6px 16px;font-size:12px;font-weight:600;border-radius:2px;border:none;cursor:pointer;font-family:"Open Sans",sans-serif;transition:opacity .2s}
+    .bsm:hover{opacity:.82}
+    .bsm:disabled{opacity:.5;cursor:not-allowed}
+    .bsm-p{background:#259fef;color:#fff}
+    .bsm-g{background:#f5f5f5;color:#666;border:1px solid #ccc}
+    .bsm-d{background:#e74c3c;color:#fff}
+    .item-list{list-style:none}
+    .item{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+    .item:last-child{border-bottom:none}
+    .item-info strong{display:block;color:#4e5f70;font-weight:600}
+    .item-info small{color:#aaa;font-size:11px}
+    .item-actions{display:flex;gap:5px;flex-shrink:0}
+    .bi{padding:3px 8px;font-size:11px;font-weight:700;border:none;border-radius:2px;cursor:pointer;transition:opacity .2s;white-space:nowrap}
+    .bi:hover{opacity:.8}
+    .bi-e{background:#e8f4fd;color:#1a6da8}
+    .bi-d{background:#ffebee;color:#c62828}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;align-items:center;justify-content:center}
+    .modal-overlay.show{display:flex}
+    .modal{background:#fff;border-radius:3px;width:100%;max-width:520px;box-shadow:0 8px 32px rgba(0,0,0,.18);overflow:hidden}
+    .modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #e8e8e8;background:#fafafa}
+    .modal-title{font-size:14px;font-weight:700;color:#4e5f70}
+    .modal-close{background:none;border:none;font-size:18px;color:#aaa;cursor:pointer;line-height:1;padding:0}
+    .modal-close:hover{color:#4e5f70}
+    .modal-body{padding:20px}
+    .modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid #e8e8e8;background:#fafafa}
+    .sp{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:5px}
+    .msp{display:inline-block;width:14px;height:14px;border:2px solid #ddd;border-top-color:#259fef;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .empty-state{text-align:center;padding:28px;color:#aaa;font-size:13px}
+    .empty-state span{display:block;font-size:24px;margin-bottom:6px}
+    @media(max-width:1000px){.two-col{grid-template-columns:1fr}}
+    @media(max-width:700px){.form-row{grid-template-columns:1fr}}
+    @media(max-width:768px){.dash-user-info{display:none}}
+  </style>
+</head>
+<body>
+<div class="oe-page">
+
+  <header class="dash-header">
+    <div class="oe-inner">
+      <div class="dash-left">
+        <a href="https://omega-electric.com.br/" class="oe-logo">
+          <img src="https://yata-apix-019e6a9c-9df1-45fd-a902-e7fdd7d94508.s3-object.locaweb.com.br/b3fccc9b63a44d61b798619655d854b3.png" alt="Omega Electric" style="height:38px"/>
+        </a>
+        <span class="dash-sep">|</span>
+        <span class="dash-label">Administração</span>
+      </div>
+      <div class="dash-user">
+        <div class="dash-user-info">
+          <span class="dash-name" id="nav-name">—</span>
+          <span class="dash-email" id="nav-email">—</span>
+        </div>
+        <div class="dash-avatar" id="nav-avatar">?</div>
+        <a href="dashboard.html" class="btn-nav">Painel</a>
+        <button type="button" class="btn-nav" id="btn-logout">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner offline — aparece quando API não responde -->
+  <div id="api-banner" style="display:none;padding:8px 20px;font-size:12px;font-weight:600;
+    background:#ffebee;color:#c62828;border-bottom:2px solid #e74c3c;text-align:center">
+    ⚠️ Servidor inacessível em <strong>localhost:3000</strong> — rode <code>npm run dev</code> na pasta backend
+  </div>
+
+  <div class="admin-main">
+    <div class="oe-inner">
+
+      <div class="tabs">
+        <button type="button" class="tab" data-tab="clientes">👤 Clientes</button>
+        <button type="button" class="tab" data-tab="laudos">📋 Laudos</button>
+      </div>
+
+      <!-- ═══════════ ABA CLIENTES ═══════════ -->
+      <div class="tab-panel" id="tab-clientes">
+        <div class="two-col">
+
+          <div class="panel">
+            <div class="panel-hdr"><span class="title">Cadastrar Novo Cliente</span></div>
+            <div class="panel-body">
+              <div class="ffb" id="cli-fb"></div>
+              <div class="form-row single">
+                <div class="oe-form-group">
+                  <label for="cli-nome">Nome da empresa / cliente *</label>
+                  <input type="text" id="cli-nome" placeholder="Empresa Ltda." maxlength="100"/>
+                </div>
+              </div>
+              <div class="form-row single">
+                <div class="oe-form-group">
+                  <label for="cli-email">E-mail de acesso *</label>
+                  <input type="email" id="cli-email" placeholder="contato@empresa.com.br" maxlength="120" autocomplete="off"/>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="oe-form-group">
+                  <label for="cli-senha">Senha *</label>
+                  <input type="password" id="cli-senha" placeholder="Mínimo 6 caracteres" minlength="6" maxlength="64" autocomplete="new-password"/>
+                </div>
+                <div class="oe-form-group">
+                  <label for="cli-senha2">Confirmar senha *</label>
+                  <input type="password" id="cli-senha2" placeholder="Repita a senha" maxlength="64" autocomplete="new-password"/>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="bsm bsm-g" id="btn-cli-limpar">Limpar</button>
+                <button type="button" class="bsm bsm-p" id="btn-cli-salvar">Cadastrar Cliente</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-hdr">
+              <span class="title">Clientes Cadastrados</span>
+              <span class="count" id="cli-count">—</span>
+            </div>
+            <div class="panel-body" style="padding:0">
+              <div class="empty-state" id="cli-loading"><span><span class="msp"></span></span>Carregando...</div>
+              <ul class="item-list" id="cli-list" style="padding:0 18px"></ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══════════ ABA LAUDOS ═══════════ -->
+      <div class="tab-panel" id="tab-laudos">
+
+        <div class="panel" style="margin-bottom:18px">
+          <div class="panel-hdr"><span class="title">Cadastrar Novo Laudo</span></div>
+          <div class="panel-body">
+            <div class="ffb" id="lau-fb"></div>
+            <div class="form-row">
+              <div class="oe-form-group">
+                <label for="lau-id">Nº do Laudo <small style="color:#aaa;font-weight:400">(deixe em branco para gerar automaticamente)</small></label>
+                <input type="text" id="lau-id" placeholder="Ex: OE-2026-0050" maxlength="30" style="text-transform:uppercase"/>
+              </div>
+              <div class="oe-form-group">
+                <label for="lau-cliente">Cliente *</label>
+                <select id="lau-cliente"><option value="">— Selecione o cliente —</option></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="oe-form-group">
+                <label for="lau-model">Modelo do Relé *</label>
+                <input type="text" id="lau-model" placeholder="Ex: SEL-311C" maxlength="60"/>
+              </div>
+              <div class="oe-form-group">
+                <label for="lau-tipo">Tipo *</label>
+                <select id="lau-tipo">
+                  <option value="">— Selecione —</option>
+                  <option value="sobrecorrente|Sobrecorrente">Sobrecorrente</option>
+                  <option value="diferencial|Diferencial">Diferencial</option>
+                  <option value="distancia|Distância">Distância</option>
+                  <option value="multifunction|Multifunção">Multifunção</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="oe-form-group">
+                <label for="lau-sub">Subestação *</label>
+                <input type="text" id="lau-sub" placeholder="Ex: SE Mossoró 230kV" maxlength="80"/>
+              </div>
+              <div class="oe-form-group">
+                <label for="lau-bay">Bay <small style="color:#aaa;font-weight:400">(opcional)</small></label>
+                <input type="text" id="lau-bay" placeholder="Ex: Bay 03" maxlength="30"/>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="oe-form-group">
+                <label for="lau-calib">Data da Calibração *</label>
+                <input type="date" id="lau-calib"/>
+              </div>
+              <div class="oe-form-group">
+                <label for="lau-valid">Válido até *</label>
+                <input type="date" id="lau-valid"/>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="bsm bsm-g" id="btn-lau-limpar">Limpar</button>
+              <button type="button" class="bsm bsm-p" id="btn-lau-salvar">+ Cadastrar Laudo</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-hdr">
+            <span class="title">Laudos Cadastrados</span>
+            <span class="count" id="lau-count">—</span>
+          </div>
+          <div style="padding:10px 18px;border-bottom:1px solid #f0f0f0;display:flex;gap:10px">
+            <div class="oe-form-group" style="margin:0;flex:1">
+              <input type="text" id="lau-busca" placeholder="Filtrar por equipamento, subestação, bay ou nº do laudo..." style="height:30px;font-size:12px"/>
+            </div>
+            <div class="oe-form-group" style="margin:0;width:180px">
+              <select id="lau-fil-cli" style="height:30px;font-size:12px">
+                <option value="">Todos os clientes</option>
+              </select>
+            </div>
+          </div>
+          <div class="oe-table-wrap">
+            <table class="oe-table" style="min-width:860px">
+              <thead>
+                <tr>
+                  <th>Nº Laudo</th><th>Cliente</th><th>Equipamento</th><th>Tipo</th>
+                  <th>Subestação / Bay</th><th>Calibração</th><th>Validade</th>
+                  <th>Status</th><th style="text-align:center">PDF</th>
+                  <th style="text-align:center">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="lau-tbody">
+                <tr><td colspan="10" style="text-align:center;padding:30px;color:#aaa">
+                  <span class="msp"></span>Carregando laudos...
+                </td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="empty-state" id="lau-empty" style="display:none">
+            <span>📋</span>Nenhum laudo encontrado.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="oe-footer">
+    <span class="tel">+55 84 3027-3005</span>
+    <span>Administração · Omega Electric 2011.</span>
+  </footer>
+</div>
+
+<!-- Modal editar cliente -->
+<div class="modal-overlay" id="modal-cli">
+  <div class="modal">
+    <div class="modal-hdr">
+      <span class="modal-title">Editar Cliente — <span id="modal-cli-nome"></span></span>
+      <button type="button" class="modal-close" id="btn-modal-cli-x">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="ffb" id="edit-cli-fb"></div>
+      <input type="hidden" id="edit-cli-id"/>
+      <div class="form-row single">
+        <div class="oe-form-group">
+          <label for="edit-cli-nome">Nome *</label>
+          <input type="text" id="edit-cli-nome" maxlength="100"/>
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="oe-form-group">
+          <label for="edit-cli-email">E-mail *</label>
+          <input type="email" id="edit-cli-email" maxlength="120" autocomplete="off"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="oe-form-group">
+          <label for="edit-cli-senha">Nova senha <small style="color:#aaa;font-weight:400">(em branco = não altera)</small></label>
+          <input type="password" id="edit-cli-senha" placeholder="Mínimo 6 caracteres" maxlength="64" autocomplete="new-password"/>
+        </div>
+        <div class="oe-form-group">
+          <label for="edit-cli-senha2">Confirmar nova senha</label>
+          <input type="password" id="edit-cli-senha2" placeholder="Repita a senha" maxlength="64" autocomplete="new-password"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="bsm bsm-g" id="btn-cli-cancelar">Cancelar</button>
+      <button type="button" class="bsm bsm-p" id="btn-cli-update">Salvar Alterações</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal editar laudo -->
+<div class="modal-overlay" id="modal-lau">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-hdr">
+      <span class="modal-title">Editar Laudo — <span id="modal-lau-id"></span></span>
+      <button type="button" class="modal-close" id="btn-modal-lau-x">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="ffb" id="edit-lau-fb"></div>
+      <input type="hidden" id="edit-lau-id"/>
+      <div class="form-row">
+        <div class="oe-form-group">
+          <label for="edit-lau-novo-id">Nº do Laudo *</label>
+          <input type="text" id="edit-lau-novo-id" maxlength="30" style="text-transform:uppercase"/>
+        </div>
+        <div class="oe-form-group">
+          <label for="edit-lau-cli">Cliente *</label>
+          <select id="edit-lau-cli"><option value="">— Selecione —</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="oe-form-group">
+          <label for="edit-lau-model">Modelo *</label>
+          <input type="text" id="edit-lau-model" maxlength="60"/>
+        </div>
+        <div class="oe-form-group">
+          <label for="edit-lau-tipo">Tipo *</label>
+          <select id="edit-lau-tipo">
+            <option value="">— Selecione —</option>
+            <option value="sobrecorrente|Sobrecorrente">Sobrecorrente</option>
+            <option value="diferencial|Diferencial">Diferencial</option>
+            <option value="distancia|Distância">Distância</option>
+            <option value="multifunction|Multifunção">Multifunção</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="oe-form-group">
+          <label for="edit-lau-sub">Subestação *</label>
+          <input type="text" id="edit-lau-sub" maxlength="80"/>
+        </div>
+        <div class="oe-form-group">
+          <label for="edit-lau-bay">Bay <small style="color:#aaa;font-weight:400">(opcional)</small></label>
+          <input type="text" id="edit-lau-bay" maxlength="30"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="oe-form-group">
+          <label for="edit-lau-calib">Data Calibração *</label>
+          <input type="date" id="edit-lau-calib"/>
+        </div>
+        <div class="oe-form-group">
+          <label for="edit-lau-valid">Válido até *</label>
+          <input type="date" id="edit-lau-valid"/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="bsm bsm-g" id="btn-lau-cancelar">Cancelar</button>
+      <button type="button" class="bsm bsm-p" id="btn-lau-update">Salvar Alterações</button>
+    </div>
+  </div>
+</div>
+
+<!-- Input de arquivo para upload de PDF -->
+<input type="file" id="pdf-input" accept=".pdf" style="display:none"/>
+
+<script>
+// ==============================================================
+// OMEGA ELECTRIC — Administração
+// admin.html — script limpo, gerado em 2026-06-23
+// ==============================================================
+
+// URL base da API — detecta o ambiente automaticamente
+// Local (Live Server) → http://localhost:3000 | Produção → API_PROD
+const API_PROD = 'https://omega-electric-portal-api.onrender.com';
+const ehLocal  = ['localhost', '127.0.0.1'].includes(location.hostname);
+const API   = ehLocal ? 'http://localhost:3000' : API_PROD;
+const token = sessionStorage.getItem('oe-token');
+const sess  = JSON.parse(sessionStorage.getItem('oe-session') || 'null');
+
+// ── Auth ──────────────────────────────────────────────────────
+if (!token || !sess) {
+  window.location.replace('login.html');
+} else if (sess.perfil !== 'admin') {
+  alert('Acesso restrito ao administrador.');
+  window.location.replace('dashboard.html');
+} else {
+  const nome = sess.name || sess.email.split('@')[0];
+  document.getElementById('nav-name').textContent   = nome;
+  document.getElementById('nav-email').textContent  = sess.email;
+  document.getElementById('nav-avatar').textContent = nome[0].toUpperCase();
+}
+
+const H = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+
+// ── Logout ────────────────────────────────────────────────────
+document.getElementById('btn-logout').addEventListener('click', function() {
+  sessionStorage.removeItem('oe-token');
+  sessionStorage.removeItem('oe-session');
+  window.location.href = 'login.html';
+});
+
+// ── Abas com sessionStorage ───────────────────────────────────
+function ativarAba(nome) {
+  sessionStorage.setItem('admin-aba', nome);
+  document.querySelectorAll('.tab').forEach(function(t) {
+    t.classList.toggle('active', t.dataset.tab === nome);
+  });
+  document.querySelectorAll('.tab-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === 'tab-' + nome);
+  });
+  if (nome === 'laudos' && laudos.length) renderLaudos();
+}
+
+document.querySelectorAll('.tab').forEach(function(t) {
+  t.addEventListener('click', function() { ativarAba(t.dataset.tab); });
+});
+
+// ── Modais ────────────────────────────────────────────────────
+function abrirModal(id) { document.getElementById(id).classList.add('show'); }
+function fecharModal(id) { document.getElementById(id).classList.remove('show'); }
+
+document.querySelectorAll('.modal-overlay').forEach(function(m) {
+  m.addEventListener('click', function(e) { if (e.target === m) m.classList.remove('show'); });
+});
+
+document.getElementById('btn-modal-cli-x').addEventListener('click', function() { fecharModal('modal-cli'); });
+document.getElementById('btn-cli-cancelar').addEventListener('click', function() { fecharModal('modal-cli'); });
+document.getElementById('btn-modal-lau-x').addEventListener('click', function() { fecharModal('modal-lau'); });
+document.getElementById('btn-lau-cancelar').addEventListener('click', function() { fecharModal('modal-lau'); });
+
+// ── Feedback ──────────────────────────────────────────────────
+function fb(id, msg, tipo) {
+  var el = document.getElementById(id);
+  el.textContent = msg;
+  el.className = 'ffb show ' + tipo;
+  if (tipo === 'ok') setTimeout(function() { el.classList.remove('show'); }, 4000);
+}
+
+function setBtn(id, loading, label) {
+  var b = document.getElementById(id);
+  if (!b) return;
+  b.disabled = loading;
+  b.innerHTML = loading ? '<span class="sp"></span>' + label : label;
+}
+
+// ── Utils ─────────────────────────────────────────────────────
+function fmt(iso) {
+  var p = iso.split('-');
+  return p[2] + '/' + p[1] + '/' + p[0];
+}
+
+function nomeCli(id) {
+  var c = clientes.find(function(x) { return x.id === id; });
+  return c ? c.nome : '(' + id.substring(0,8) + '...)';
+}
+
+function badgeSt(s) {
+  var m = {
+    valida:    'background:#e8f5e9;color:#2e7d32',
+    'a-vencer':'background:#fff8e1;color:#7d5a02',
+    vencida:   'background:#ffebee;color:#c62828'
+  };
+  var lb = { valida:'VÁLIDA', 'a-vencer':'A VENCER', vencida:'VENCIDA' };
+  return '<span style="display:inline-block;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;' + (m[s]||'') + '">' + (lb[s]||s) + '</span>';
+}
+
+// ── Estado global ─────────────────────────────────────────────
+var clientes = [];
+var laudos   = [];
+
+// ═══════════════════════════════════════════════════════════════
+// CLIENTES
+// ═══════════════════════════════════════════════════════════════
+function carregarClientes() {
+  return fetch(API + '/api/clientes', { headers: H })
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      clientes = data;
+      renderClientes();
+      preencherSelects();
+    })
+    .catch(function(err) {
+      console.error('[API] /clientes falhou:', err);
+      document.getElementById('api-banner').style.display = 'block';
+      document.getElementById('cli-loading').innerHTML =
+        '<span>⚠️</span>Erro: ' + err.message + ' — servidor offline?';
+    });
+}
+
+function renderClientes() {
+  var lista  = document.getElementById('cli-list');
+  var load   = document.getElementById('cli-loading');
+  document.getElementById('cli-count').textContent =
+    clientes.length + ' cliente' + (clientes.length !== 1 ? 's' : '');
+  load.style.display = 'none';
+
+  if (!clientes.length) {
+    lista.innerHTML = '<li class="empty-state"><span>👤</span>Nenhum cliente cadastrado.</li>';
+    return;
+  }
+
+  lista.innerHTML = clientes.map(function(c) {
+    return '<li class="item">' +
+      '<div class="item-info">' +
+        '<strong>' + c.nome + '</strong>' +
+        '<small>' + c.email + '</small>' +
+      '</div>' +
+      '<div class="item-actions">' +
+        '<button type="button" class="bi bi-e" onclick="abrirEditarCliente(\'' + c.id + '\')">✏ Editar</button>' +
+        '<button type="button" class="bi bi-d" onclick="excluirCliente(\'' + c.id + '\',\'' + c.nome.replace(/'/g, "\\'") + '\')">🗑</button>' +
+      '</div>' +
+    '</li>';
+  }).join('');
+}
+
+function preencherSelects() {
+  var opts = '<option value="">— Selecione o cliente —</option>' +
+    clientes.map(function(c) {
+      return '<option value="' + c.id + '">' + c.nome + '</option>';
+    }).join('');
+  document.getElementById('lau-cliente').innerHTML  = opts;
+  document.getElementById('edit-lau-cli').innerHTML = opts;
+
+  var fil = '<option value="">Todos os clientes</option>' +
+    clientes.map(function(c) {
+      return '<option value="' + c.id + '">' + c.nome + '</option>';
+    }).join('');
+  document.getElementById('lau-fil-cli').innerHTML = fil;
+}
+
+// Cadastrar cliente
+document.getElementById('btn-cli-salvar').addEventListener('click', function() {
+  var nome   = document.getElementById('cli-nome').value.trim();
+  var email  = document.getElementById('cli-email').value.trim();
+  var senha  = document.getElementById('cli-senha').value;
+  var senha2 = document.getElementById('cli-senha2').value;
+
+  if (!nome || !email || !senha) { fb('cli-fb','Preencha todos os campos.','err'); return; }
+  if (senha !== senha2)          { fb('cli-fb','As senhas não coincidem.','err'); return; }
+  if (senha.length < 6)          { fb('cli-fb','Senha mínima: 6 caracteres.','err'); return; }
+
+  setBtn('btn-cli-salvar', true, 'Salvando...');
+  fetch(API + '/api/clientes', {
+    method: 'POST', headers: H,
+    body: JSON.stringify({ nome: nome, email: email, senha: senha })
+  })
+  .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+  .then(function(res) {
+    if (!res.ok) { fb('cli-fb', res.d.erro || 'Erro.', 'err'); return; }
+    fb('cli-fb', '✓ Cliente "' + res.d.cliente.nome + '" cadastrado!', 'ok');
+    ['cli-nome','cli-email','cli-senha','cli-senha2'].forEach(function(i) {
+      document.getElementById(i).value = '';
+    });
+    return carregarClientes();
+  })
+  .catch(function() { fb('cli-fb','Erro de conexão.','err'); })
+  .finally(function() { setBtn('btn-cli-salvar', false, 'Cadastrar Cliente'); });
+});
+
+document.getElementById('btn-cli-limpar').addEventListener('click', function() {
+  ['cli-nome','cli-email','cli-senha','cli-senha2'].forEach(function(i) {
+    document.getElementById(i).value = '';
+  });
+  document.getElementById('cli-fb').classList.remove('show');
+});
+
+// Editar cliente
+function abrirEditarCliente(id) {
+  var c = clientes.find(function(x) { return x.id === id; });
+  if (!c) return;
+  document.getElementById('edit-cli-id').value          = c.id;
+  document.getElementById('modal-cli-nome').textContent = c.nome;
+  document.getElementById('edit-cli-nome').value        = c.nome;
+  document.getElementById('edit-cli-email').value       = c.email;
+  document.getElementById('edit-cli-senha').value       = '';
+  document.getElementById('edit-cli-senha2').value      = '';
+  document.getElementById('edit-cli-fb').classList.remove('show');
+  abrirModal('modal-cli');
+}
+
+document.getElementById('btn-cli-update').addEventListener('click', function() {
+  var id     = document.getElementById('edit-cli-id').value;
+  var nome   = document.getElementById('edit-cli-nome').value.trim();
+  var email  = document.getElementById('edit-cli-email').value.trim();
+  var senha  = document.getElementById('edit-cli-senha').value;
+  var senha2 = document.getElementById('edit-cli-senha2').value;
+
+  if (!nome || !email) { fb('edit-cli-fb','Nome e e-mail obrigatórios.','err'); return; }
+  if (senha && senha !== senha2) { fb('edit-cli-fb','Senhas não coincidem.','err'); return; }
+
+  var body = { nome: nome, email: email };
+  if (senha) body.senha = senha;
+
+  setBtn('btn-cli-update', true, 'Salvando...');
+  fetch(API + '/api/clientes/' + id, {
+    method: 'PUT', headers: H, body: JSON.stringify(body)
+  })
+  .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+  .then(function(res) {
+    if (!res.ok) { fb('edit-cli-fb', res.d.erro || 'Erro.', 'err'); return; }
+    fecharModal('modal-cli');
+    return carregarClientes();
+  })
+  .catch(function() { fb('edit-cli-fb','Erro de conexão.','err'); })
+  .finally(function() { setBtn('btn-cli-update', false, 'Salvar Alterações'); });
+});
+
+// Excluir cliente
+function excluirCliente(id, nome) {
+  if (!confirm('Confirma a exclusão do cliente?\n\n"' + nome + '"\n\nSe houver laudos vinculados, a exclusão será bloqueada.')) return;
+  fetch(API + '/api/clientes/' + id, { method: 'DELETE', headers: H })
+  .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+  .then(function(res) {
+    if (!res.ok) { alert(res.d.erro || 'Erro.'); return; }
+    return carregarClientes();
+  })
+  .catch(function() { alert('Erro de conexão.'); });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LAUDOS
+// ═══════════════════════════════════════════════════════════════
+function carregarLaudos() {
+  return fetch(API + '/api/laudos', { headers: H })
+    .then(function(r) {
+      if (r.status === 401) {
+        sessionStorage.removeItem('oe-token');
+        window.location.replace('login.html');
+        throw new Error('401');
+      }
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      laudos = data;
+      renderLaudos();
+    })
+    .catch(function(err) {
+      if (err.message === '401') return;
+      console.error('[API] /laudos falhou:', err);
+      document.getElementById('lau-tbody').innerHTML =
+        '<tr><td colspan="10" style="text-align:center;padding:30px;color:#e74c3c">⚠️ Erro: ' + err.message + '</td></tr>';
+      document.getElementById('lau-count').textContent = 'erro';
+    });
+}
+
+function renderLaudos() {
+  var busca  = document.getElementById('lau-busca').value.toLowerCase().trim();
+  var filCli = document.getElementById('lau-fil-cli').value;
+
+  var fil = laudos.filter(function(l) {
+    var ms = !busca || [l.id, l.model, l.sub, l.bay || '', l.typeLabel]
+      .some(function(x) { return x.toLowerCase().indexOf(busca) >= 0; });
+    return ms && (!filCli || l.clienteId === filCli);
+  });
+
+  document.getElementById('lau-count').textContent =
+    fil.length + ' de ' + laudos.length + ' laudo' + (laudos.length !== 1 ? 's' : '');
+  document.getElementById('lau-empty').style.display = fil.length ? 'none' : 'block';
+
+  document.getElementById('lau-tbody').innerHTML = fil.map(function(l) {
+    var subBay = l.sub + (l.bay ? ' / ' + l.bay : '');
+    var dateCls = l.status === 'vencida' ? 'cell-date expired' : l.status === 'a-vencer' ? 'cell-date warning' : 'cell-date';
+    var pdfBtn = l.temPDF
+      ? '<button type="button" class="bi" style="background:#e8f5e9;color:#2e7d32" onclick="uploadPDF(\'' + l.id + '\')" title="PDF carregado — clique para substituir">✅ PDF</button>'
+      : '<button type="button" class="bi" style="background:#fff3cd;color:#856404" onclick="uploadPDF(\'' + l.id + '\')" title="Enviar PDF">📎 Upload</button>';
+    return '<tr>' +
+      '<td style="font-size:11px;white-space:nowrap;font-family:monospace">' + l.id + '</td>' +
+      '<td style="font-size:12px">' + nomeCli(l.clienteId) + '</td>' +
+      '<td><strong style="font-size:13px">' + l.model + '</strong></td>' +
+      '<td style="font-size:12px">' + l.typeLabel + '</td>' +
+      '<td style="font-size:12px">' + subBay + '</td>' +
+      '<td class="cell-date">' + fmt(l.calibDate) + '</td>' +
+      '<td class="' + dateCls + '">' + fmt(l.validUntil) + '</td>' +
+      '<td>' + badgeSt(l.status) + '</td>' +
+      '<td style="text-align:center">' + pdfBtn + '</td>' +
+      '<td><div style="display:flex;gap:5px">' +
+        '<button type="button" class="bi bi-e" onclick="abrirEditarLaudo(\'' + l.id + '\')">✏ Editar</button>' +
+        '<button type="button" class="bi bi-d" onclick="excluirLaudo(\'' + l.id + '\')">🗑 Excluir</button>' +
+      '</div></td>' +
+    '</tr>';
+  }).join('');
+}
+
+document.getElementById('lau-busca').addEventListener('input', renderLaudos);
+document.getElementById('lau-fil-cli').addEventListener('change', renderLaudos);
+
+// Data de calibração = hoje
+document.getElementById('lau-calib').valueAsDate = new Date();
+
+// Cadastrar laudo
+document.getElementById('btn-lau-salvar').addEventListener('click', function() {
+  var idCustom   = document.getElementById('lau-id').value.trim().toUpperCase();
+  var clienteId  = document.getElementById('lau-cliente').value;
+  var model      = document.getElementById('lau-model').value.trim();
+  var tipoVal    = document.getElementById('lau-tipo').value;
+  var sub        = document.getElementById('lau-sub').value.trim();
+  var bay        = document.getElementById('lau-bay').value.trim();
+  var calibDate  = document.getElementById('lau-calib').value;
+  var validUntil = document.getElementById('lau-valid').value;
+
+  if (!clienteId || !model || !tipoVal || !sub || !calibDate || !validUntil) {
+    fb('lau-fb','Preencha todos os campos obrigatórios.','err'); return;
+  }
+  if (validUntil <= calibDate) {
+    fb('lau-fb','A validade deve ser posterior à data de calibração.','err'); return;
+  }
+
+  var partes = tipoVal.split('|');
+  var body = {
+    clienteId: clienteId, model: model,
+    type: partes[0], typeLabel: partes[1],
+    sub: sub, bay: bay, calibDate: calibDate, validUntil: validUntil
+  };
+  if (idCustom) body.id = idCustom;
+
+  setBtn('btn-lau-salvar', true, 'Salvando...');
+  fetch(API + '/api/laudos', { method: 'POST', headers: H, body: JSON.stringify(body) })
+  .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+  .then(function(res) {
+    if (!res.ok) { fb('lau-fb', res.d.erro || 'Erro.', 'err'); return; }
+    fb('lau-fb', '✓ Laudo ' + res.d.laudo.id + ' cadastrado!', 'ok');
+    ['lau-id','lau-model','lau-sub','lau-bay','lau-valid'].forEach(function(i) {
+      document.getElementById(i).value = '';
+    });
+    document.getElementById('lau-cliente').value = '';
+    document.getElementById('lau-tipo').value    = '';
+    document.getElementById('lau-calib').valueAsDate = new Date();
+    return carregarLaudos();
+  })
+  .catch(function() { fb('lau-fb','Erro de conexão.','err'); })
+  .finally(function() { setBtn('btn-lau-salvar', false, '+ Cadastrar Laudo'); });
+});
+
+document.getElementById('btn-lau-limpar').addEventListener('click', function() {
+  ['lau-id','lau-model','lau-sub','lau-bay','lau-valid'].forEach(function(i) {
+    document.getElementById(i).value = '';
+  });
+  document.getElementById('lau-cliente').value = '';
+  document.getElementById('lau-tipo').value    = '';
+  document.getElementById('lau-calib').valueAsDate = new Date();
+  document.getElementById('lau-fb').classList.remove('show');
+});
+
+// Editar laudo
+function abrirEditarLaudo(id) {
+  var l = laudos.find(function(x) { return x.id === id; });
+  if (!l) return;
+  document.getElementById('edit-lau-id').value          = l.id;
+  document.getElementById('edit-lau-novo-id').value     = l.id;
+  document.getElementById('modal-lau-id').textContent   = l.id;
+  document.getElementById('edit-lau-cli').value         = l.clienteId;
+  document.getElementById('edit-lau-model').value       = l.model;
+  document.getElementById('edit-lau-tipo').value        = l.type + '|' + l.typeLabel;
+  document.getElementById('edit-lau-sub').value         = l.sub;
+  document.getElementById('edit-lau-bay').value         = l.bay || '';
+  document.getElementById('edit-lau-calib').value       = l.calibDate;
+  document.getElementById('edit-lau-valid').value       = l.validUntil;
+  document.getElementById('edit-lau-fb').classList.remove('show');
+  abrirModal('modal-lau');
+}
+
+document.getElementById('btn-lau-update').addEventListener('click', function() {
+  var id         = document.getElementById('edit-lau-id').value;
+  var novoId     = document.getElementById('edit-lau-novo-id').value.trim().toUpperCase();
+  var clienteId  = document.getElementById('edit-lau-cli').value;
+  var model      = document.getElementById('edit-lau-model').value.trim();
+  var tipoVal    = document.getElementById('edit-lau-tipo').value;
+  var sub        = document.getElementById('edit-lau-sub').value.trim();
+  var bay        = document.getElementById('edit-lau-bay').value.trim();
+  var calibDate  = document.getElementById('edit-lau-calib').value;
+  var validUntil = document.getElementById('edit-lau-valid').value;
+
+  if (!novoId || !clienteId || !model || !tipoVal || !sub || !calibDate || !validUntil) {
+    fb('edit-lau-fb','Preencha todos os campos.','err'); return;
+  }
+  if (validUntil <= calibDate) {
+    fb('edit-lau-fb','Validade deve ser posterior à calibração.','err'); return;
+  }
+
+  var partes = tipoVal.split('|');
+  var body = {
+    novoId: novoId, clienteId: clienteId,
+    model: model, type: partes[0], typeLabel: partes[1],
+    sub: sub, bay: bay, calibDate: calibDate, validUntil: validUntil
+  };
+
+  setBtn('btn-lau-update', true, 'Salvando...');
+  fetch(API + '/api/laudos/' + id, { method: 'PUT', headers: H, body: JSON.stringify(body) })
+  .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+  .then(function(res) {
+    if (!res.ok) { fb('edit-lau-fb', res.d.erro || 'Erro.', 'err'); return; }
+    fecharModal('modal-lau');
+    return carregarLaudos();
+  })
+  .catch(function() { fb('edit-lau-fb','Erro de conexão.','err'); })
+  .finally(function() { setBtn('btn-lau-update', false, 'Salvar Alterações'); });
+});
+
+// Excluir laudo
+function excluirLaudo(id) {
+  var l = laudos.find(function(x) { return x.id === id; });
+  if (!l) return;
+  var msg = 'Confirma a exclusão do laudo?\n\nNº ' + l.id +
+    '\nEquipamento: ' + l.model +
+    '\nSubestação: ' + l.sub + (l.bay ? ' — ' + l.bay : '') +
+    '\n\nEsta ação não pode ser desfeita.';
+  if (!confirm(msg)) return;
+
+  fetch(API + '/api/laudos/' + id, { method: 'DELETE', headers: H })
+  .then(function(r) {
+    if (!r.ok) return r.json().then(function(d) { alert(d.erro || 'Erro.'); });
+    return carregarLaudos();
+  })
+  .catch(function() { alert('Erro de conexão.'); });
+}
+
+// ── Upload de PDF ─────────────────────────────────────────────
+var uploadLaudoId = null;
+
+function uploadPDF(id) {
+  uploadLaudoId = id;
+  var inp = document.getElementById('pdf-input');
+  inp.value = '';
+  inp.click();
+}
+
+document.getElementById('pdf-input').addEventListener('change', function() {
+  var file = this.files[0];
+  if (!file || !uploadLaudoId) return;
+  if (file.type !== 'application/pdf') {
+    alert('Apenas arquivos PDF são aceitos.'); this.value = ''; return;
+  }
+  if (file.size > 20 * 1024 * 1024) {
+    alert('Arquivo excede 20 MB.'); this.value = ''; return;
+  }
+  var id   = uploadLaudoId;
+  var form = new FormData();
+  form.append('pdf', file);
+  this.value   = '';
+  uploadLaudoId = null;
+
+  fetch(API + '/api/certificados/upload/' + id, {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + token },
+    body: form
+  })
+  .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+  .then(function(res) {
+    if (!res.ok) { alert(res.d.erro || 'Erro no upload.'); return; }
+    alert('✅ Certificado enviado!\nArquivo: ' + res.d.arquivo);
+    return carregarLaudos();
+  })
+  .catch(function() { alert('Erro de conexão ao enviar o arquivo.'); });
+});
+
+// ── Inicialização ─────────────────────────────────────────────
+function inicializar() {
+  console.log('[ADMIN] Iniciando — token:', token ? 'presente' : 'AUSENTE');
+  carregarClientes()
+    .then(function() { return carregarLaudos(); })
+    .then(function() {
+      var aba = sessionStorage.getItem('admin-aba') || 'clientes';
+      ativarAba(aba);
+      console.log('[ADMIN] Carregamento concluído. Aba:', aba);
+    });
+}
+
+inicializar();
+</script>
+</body>
+</html>
