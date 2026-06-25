@@ -22,5 +22,18 @@
     "calibDate": "2026-06-23",
     "validUntil": "2027-06-23",
     "criadoEm": "2026-06-23T16:36:20.533Z"
+  },
+  {
+    "id": "OE-2026-0003",
+    "clienteId": "41f86d87-cc93-4c81-8dc9-ead7667af5da",
+    "model": "P143",
+    "type": "sobrecorrente",
+    "typeLabel": "Sobrecorrente",
+    "sub": "SE IMD",
+    "bay": "DIM0546",
+    "calibDate": "2026-06-23",
+    "validUntil": "2027-06-24",
+    "criadoEm": "2026-06-23T17:12:29.821Z",
+    "atualizadoEm": "2026-06-23T17:22:33.895Z"
   }
 ]

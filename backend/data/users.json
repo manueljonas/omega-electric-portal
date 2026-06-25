@@ -22,5 +22,14 @@
     "senha": "$2a$10$50T/pHKIfOWYm3loV4kbb.YLZQ.P7N.NGrvNaDjHMpxc86d2MmGI.",
     "perfil": "cliente",
     "criadoEm": "2026-06-23T04:33:56.476Z"
+  },
+  {
+    "id": "41f86d87-cc93-4c81-8dc9-ead7667af5da",
+    "nome": "IMD",
+    "email": "admin@imd.com.br",
+    "senha": "$2a$10$4aVXV.mKbhep8qaaZbLOHOKsxsbQrLEjlDahRSgcswqmOLXIzBb7K",
+    "perfil": "cliente",
+    "criadoEm": "2026-06-23T17:10:58.471Z",
+    "atualizadoEm": "2026-06-23T17:20:37.027Z"
   }
 ]
