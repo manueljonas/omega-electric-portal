@@ -132,7 +132,7 @@ na **raiz do repositório**; se for usar essa forma, mova/copie o arquivo para a
 
 Após o deploy, confirme a URL pública e atualize a constante `API_PROD` nas três páginas
 (`login.html`, `dashboard.html`, `admin.html`) caso o nome do serviço seja diferente de
-`omega-electric-portal-api`.
+`omega-electric-portal`.
 
 **Frontend → GitHub Pages**
 
